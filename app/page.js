@@ -6,7 +6,7 @@ export default function Home() {
         <h1 className='text-4xl pb-5'>Workout App</h1>
         <p className='italic'>App to create and track your workouts for you.</p>
         <h2>In order to get started you must login.</h2>
-        <p className='italic'>If you don't have an account you can create one.</p>
+        <p className='italic'>If you don&apos;t have an account you can create one.</p>
         <p>How the app works:</p>
         <p>You can create a workout using the workout creator. You can then select that workout in the dashboard and it will prompt you thru the workout where you can record the weight/reps/sets/etc.</p>
         <p>You can then view your workout history in the dashboard as well.</p>

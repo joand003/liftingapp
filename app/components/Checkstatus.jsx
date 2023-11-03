@@ -1,19 +1,20 @@
 "use client"
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/navigation'
 
 
 export default function Checkstatus() {
-    const { data: session } = useSession();
-    const userName = session?.user?.name;
+    const { data: session, status } = useSession();
+    const router = useRouter()
 
-    if (!userName) {
-        const router = useRouter()
-        router.push('/')
-    }
+    useEffect(() => {
+        if (status === "loading") return; // Do nothing while loading
+        if (status === "unauthenticated") return router.push("/"); // If not authenticated, force log in
+    }, [status, router]);
 
-  return (
-    <></>
-  )
+    if (status === "loading") return <div>Loading...</div>;
+    if (status === "unauthenticated") return <div>Redirecting...</div>;
+
+  return session ? null : null;
 }

@@ -10,7 +10,7 @@ export default function Profile() {
         <h4 className='text-xl'>Email: </h4>
         <h4 className='text-xl'>Total workouts recorded: </h4>
         <h4 className='text-xl'>Workouts: </h4>
-        //TODO add variable for workout preference in weight
+        {/* //TODO add variable for workout preference in weight */}
         <h4 className='text-xl'>Show weight in: lbs or kg </h4>
         <button>Delete Account</button>
         <LogoutButton />
