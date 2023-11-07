@@ -2,12 +2,11 @@
 import React, { useState, useEffect } from 'react'
 import { BsVolumeMuteFill, BsVolumeUpFill } from 'react-icons/bs'
 
-export default function Timer() {
+export default function Timer({cooldownTime}) {
     //TODO change definedTime to be a prop of the cooldown time of the current workout
-    let cooldownTime;
-    const initialTime = cooldownTime || 60
+    let defaultTime = cooldownTime || 60;
 
-    const [time, setTime] = useState(initialTime)
+    const [time, setTime] = useState(defaultTime)
     const [timerOn, setTimerOn] = useState(false)
     const [timeOptionsOn, setTimeOptionsOn] = useState(false)
     const [soundOn, setSoundOn] = useState(true)
@@ -77,7 +76,7 @@ export default function Timer() {
         </div>: null}
         <div className='pl-5 flex flex-row'>
             {time > 0 ? <button className='bg-purple-500 hover:bg-color-400 rounded px-2 mr-2' onClick={toggleTimer}>{timerOn ? 'Pause' : 'Start'}</button> : null}
-            <button className='bg-purple-500 hover:bg-color-400 rounded px-2' onClick={resetTimer}>Reset</button>
+            <button className='bg-purple-500 hover:bg-color-400 rounded px-2' onClick={resetTimer}>Load CD</button>
             <button className='bg-purple-500 hover:bg-color-400 rounded px-2 mx-2' onClick={toggleTimeOptions}>{timeOptionsOn ? 'Hide options' : 'Edit time'}</button>
             {soundOn ? <BsVolumeUpFill className='hover:cursor-pointer' onClick={toggleSound} size={25}/> : <BsVolumeMuteFill className='hover:cursor-pointer' onClick={toggleSound} size={25}/>}
             
