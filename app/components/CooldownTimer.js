@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { BsVolumeMuteFill, BsVolumeUpFill } from 'react-icons/bs'
 
-export default function Timer({cooldownTime}) {
-    //TODO change definedTime to be a prop of the cooldown time of the current workout
+export default function CooldownTimer({cooldownTime}) {
     let defaultTime = cooldownTime || 60;
 
     const [time, setTime] = useState(defaultTime)
@@ -48,7 +47,7 @@ export default function Timer({cooldownTime}) {
     }
 
     const resetTimer = () => {
-        setTime(0)
+        setTime(defaultTime)
         setTimerOn(false)
     }
     const changeTime = (e) => {
@@ -65,7 +64,7 @@ export default function Timer({cooldownTime}) {
   return (
     <div>
         <h3 className='text-2xl'>Cooldown Timer</h3>
-        <div className='text-3xl text-purple-200 pl-10 pb-2'>{minutes < 10 ? '0' + minutes : minutes}: {seconds < 10 ? '0' + seconds : seconds}</div>
+        <div className='text-3xl text-purple-200 pl-10 pb-2'>{minutes < 10 ? '0' + minutes : minutes}:{seconds < 10 ? '0' + seconds : seconds}</div>
         {timeOptionsOn ? <div className='pb-2'>
             <button onClick={changeTime} value={30} className='bg-purple-500 hover:bg-color-400 rounded px-2 mr-2 mt-2'>+30s</button>
             <button onClick={changeTime} value={5} className='bg-purple-500 hover:bg-color-400 rounded px-2 mr-2 mt-2'>+5s</button>
@@ -79,7 +78,6 @@ export default function Timer({cooldownTime}) {
             <button className='bg-purple-500 hover:bg-color-400 rounded px-2' onClick={resetTimer}>Load CD</button>
             <button className='bg-purple-500 hover:bg-color-400 rounded px-2 mx-2' onClick={toggleTimeOptions}>{timeOptionsOn ? 'Hide options' : 'Edit time'}</button>
             {soundOn ? <BsVolumeUpFill className='hover:cursor-pointer' onClick={toggleSound} size={25}/> : <BsVolumeMuteFill className='hover:cursor-pointer' onClick={toggleSound} size={25}/>}
-            
         </div>
     </div>
   )
