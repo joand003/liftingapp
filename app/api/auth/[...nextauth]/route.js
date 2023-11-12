@@ -20,15 +20,6 @@ export const authOptions = {
           },
         }),
         async signIn({ user, account, profile, email, credentials }) {
-            // try {
-            // const response = await axios.post('/api/createUser', {uid: user.id, name: user.name, email: user.email});
-            // console.log(`response.data: ${JSON.stringify(response.data)}`)
-            // console.log(`response.data.message: ${JSON.stringify(response.data.message)}`)
-            // return true
-            // } catch (error) {
-            //     console.log(`error: ${error}`)
-            //     return false
-            // }
             const params = {
                 TableName: "liftappusers",
                 KeyConditionExpression: "uid = :uidValue",

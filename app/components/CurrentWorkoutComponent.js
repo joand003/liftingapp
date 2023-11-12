@@ -1,13 +1,16 @@
 import React from 'react'
+import axios from 'axios'
+import { useSession } from 'next-auth/react'
 
 export default function CurrentWorkoutComponent({currentWorkout, setCurrentWorkout, currentActivityIndex, setCurrentActivityIndex, currentSet, setCurrentSet, currentWorkoutName}) {
+    const { data: session, status } = useSession();
     const currentDate = new Date()
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     const currentDay = daysOfWeek[currentDate.getDay()]
     const stringDate = `${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`
     const maxRounds = currentWorkout.length
 
-
+//
 
     const handleChangeAmount = (e) => {
         if (e.target.name === 'reps') {
@@ -58,8 +61,10 @@ export default function CurrentWorkoutComponent({currentWorkout, setCurrentWorko
         }
     }
 
-    const handleSaveWorkout = () => {
-        console.log('saved workout')
+    const handleSaveWorkout = async () => {
+        // add loading to this button to know when saving is in progress
+        await axios.post('/api/submitWorkout', {uid: session.user.id, workoutName, workoutArray, workoutID})
+
     }
 
   return (

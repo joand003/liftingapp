@@ -64,14 +64,11 @@ export const POST = async (req) => {
             await db.send(newCommand);
         }
 
-        console.log(`response.Items from submitWorkout: ${JSON.stringify(response.Items[0].workoutIDArray)}`);
 
     } catch (error) {
         console.log(error);
         return NextResponse.error({ message: error.message }, { status: 400 });
     }
 
-    console.log("Workout added");
-    // Maybe add this to the users array of workouts??
     return NextResponse.json({ message: "Workout added" }, { status: 200 });
 }

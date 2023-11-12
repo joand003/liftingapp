@@ -17,23 +17,15 @@ export default function Dashboard() {
     const [errorMessage, setErrorMessage] = useState('')    
 
     const handleSelectWorkout = (e) => {
-        console.log('in handleSelectWorkout')
         const index = e.target.options[e.target.selectedIndex].getAttribute('data-index')
-        console.log(`index: ${index}`)
-        console.log(`exerciseListArray[index]: ${JSON.stringify(exerciseListArray[index])}`)
-        console.log(`exerciseNameArray[index]: ${exerciseNameArray[index]}`)
-        console.log(`exerciseListArray: ${JSON.stringify(exerciseListArray)}`)
-        console.log(`exerciseNameArray: ${exerciseNameArray}`)
         setCurrentWorkout(exerciseListArray[index])
         setCurrentWorkoutName(exerciseNameArray[index])
     }
 
     const loadExistingWorkouts = async() => {
-        console.log("in loadExistingWorkouts")
         setErrorMessage('')
         const response = await axios.post('/api/queryExerciseList', {uid: session.user.id})
         if (response.data.data.length === 0) {
-            console.log("no workouts")
             setErrorMessage('You have no workouts to edit')
             return
         }
@@ -43,9 +35,6 @@ export default function Dashboard() {
         const tempExerciseNameArray = response.data.data.map((item) => {
             return (item.workoutName)
         })
-        console.log(`response.data.data: ${JSON.stringify(response.data.data)}`)
-        console.log(`tempWorkoutArray: ${JSON.stringify(tempWorkoutArray)}`)
-        console.log(`tempExerciseNameArray: ${tempExerciseNameArray}`)
         setExerciseNameArray(tempExerciseNameArray)
         setExerciseListArray(tempWorkoutArray)
     }

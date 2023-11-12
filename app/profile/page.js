@@ -9,11 +9,8 @@ export default function Profile() {
   const { data: session } = useSession();
 
   const handleDeleteAccount = async() => {
-    console.log("in handleDeleteAccount")
     const response = await axios.post('/api/deleteAllWorkouts', {uid: session.user.id})
-    console.log(`response.data.message: ${JSON.stringify(response.data.message)}`)
     const response2 = await axios.post('/api/deleteUser', {uid: session.user.id})
-    console.log(`response2.data.message: ${JSON.stringify(response2.data.message)}`)
   }
 
   return (

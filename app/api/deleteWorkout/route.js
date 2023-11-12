@@ -4,8 +4,6 @@ import { QueryCommand, UpdateCommand, DeleteCommand } from "@aws-sdk/lib-dynamod
 
 export const POST = async (req) => {
     const { uid, workoutID } = await req.json();
-    console.log(`uid: ${uid}`)
-    console.log(`workoutID: ${workoutID}`)
 
     const params = {
         TableName: "workouts",
