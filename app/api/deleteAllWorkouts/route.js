@@ -15,7 +15,6 @@ export const POST = async (req) => {
 
     const response = await db.send(new QueryCommand(params));
     const workoutIDArray = response.Items[0].workoutIDArray;
-    console.log(`workoutIDArray: ${JSON.stringify(workoutIDArray)}`)
 
     const deleteItemsInBatches = async (uid, workoutIDArray) => {
         for (let i = 0; i < workoutIDArray.length; i += 25) {

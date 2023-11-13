@@ -41,7 +41,6 @@ export const authOptions = {
                         },
                     });
                     await db.send(command);
-                    console.log("User added");
         
                 }
                 return true
