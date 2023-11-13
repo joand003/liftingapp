@@ -45,10 +45,10 @@ export default function CurrentWorkoutComponent({currentWorkout, setCurrentWorko
     }
 
     const handleNext = () => {
-        if (currentSet + 1 === currentWorkout[currentActivityIndex].sets && currentActivityIndex + 1 === maxRounds) {
+        if (currentSet + 1 == currentWorkout[currentActivityIndex].sets && currentActivityIndex + 1 == maxRounds) {
             return
         }
-        if (currentSet + 1 === currentWorkout[currentActivityIndex].sets) {
+        if (currentSet + 1 == currentWorkout[currentActivityIndex].sets) {
             setCurrentSet(0)
             setCurrentActivityIndex(currentActivityIndex + 1)
             return
@@ -57,10 +57,10 @@ export default function CurrentWorkoutComponent({currentWorkout, setCurrentWorko
     }
 
     const handlePrevious = () => {
-        if (currentSet === 0 && currentActivityIndex === 0) {
+        if (currentSet == 0 && currentActivityIndex == 0) {
             return
         }
-        if (currentSet === 0) {
+        if (currentSet == 0) {
             setCurrentSet(currentWorkout[currentActivityIndex - 1].sets - 1)
             setCurrentActivityIndex(currentActivityIndex - 1)
             return
