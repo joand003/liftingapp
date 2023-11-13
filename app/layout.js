@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Provider from './components/Provider'
 
 
+
 export const metadata = {
   title: 'Workout App',
   description: 'App to create and track workouts',
