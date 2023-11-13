@@ -68,34 +68,6 @@ export default function CurrentWorkoutComponent({currentWorkout, setCurrentWorko
         setCurrentSet(currentSet - 1)
     }
 
-    
-
-    const handlePreviousSet = () => {
-        if (currentSet > 0) {
-            setCurrentSet(currentSet - 1)
-        }
-    }
-
-    const handleNextSet = () => {
-        if (currentSet < currentWorkout[currentActivityIndex].sets - 1) {
-            setCurrentSet(currentSet + 1)
-        }
-    }
-
-    const handlePreviousActivity = () => {
-        if (currentActivityIndex > 0) {
-            setCurrentActivityIndex(currentActivityIndex - 1)
-            setCurrentSet(0)
-        }
-    }
-
-    const handleNextActivity = () => {
-        if (currentActivityIndex < maxRounds - 1) {
-            setCurrentActivityIndex(currentActivityIndex + 1)
-            setCurrentSet(0)
-        }
-    }
-
     const handleSaveWorkout = async () => {
         setIsSaving(true)
         setSaveMessage('Saving...')
@@ -136,10 +108,10 @@ export default function CurrentWorkoutComponent({currentWorkout, setCurrentWorko
                 </div>}
             </div>
             <div className='flex flex-row space-x-3 pl-3'>
-                <button onClick={handlePrevious} className='bg-purple-500 hover:bg-purple-400 disabled:bg-gray-500 rounded px-2' disabled={currentSet === 0 && currentActivityIndex === 0}>Previous</button>
-                <button onClick={handleNext} className='bg-purple-500 hover:bg-purple-400 rounded px-2 disabled:bg-gray-500' disabled={currentSet + 1 === currentWorkout[currentActivityIndex].sets && currentActivityIndex + 1 === maxRounds}>Next</button>
-                {currentActivityIndex + 1 === maxRounds && currentSet + 1 === currentWorkout[currentActivityIndex].sets ? <button onClick={handleSaveWorkout} disabled={isSaving} className='bg-purple-500 hover:bg-purple-400 rounded px-2'>Save Workout</button> : null}
-                {saveMessage !== '' ? <h4 className='text-xl'>{saveMessage}</h4> : null}
+                <button onClick={handlePrevious} className='bg-purple-500 hover:bg-purple-400 disabled:bg-gray-500 rounded px-2' disabled={currentSet == 0 && currentActivityIndex == 0}>Previous</button>
+                <button onClick={handleNext} className='bg-purple-500 hover:bg-purple-400 rounded px-2 disabled:bg-gray-500' disabled={currentSet + 1 == currentWorkout[currentActivityIndex].sets && currentActivityIndex + 1 == maxRounds}>Next</button>
+                {currentActivityIndex + 1 == maxRounds && currentSet + 1 == currentWorkout[currentActivityIndex].sets ? <button onClick={handleSaveWorkout} disabled={isSaving} className='bg-purple-500 hover:bg-purple-400 rounded px-2'>Save Workout</button> : null}
+                {saveMessage != '' ? <h4 className='text-xl'>{saveMessage}</h4> : null}
             </div>
         </div>
   )
