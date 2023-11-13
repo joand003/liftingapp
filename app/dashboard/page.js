@@ -15,6 +15,8 @@ export default function Dashboard() {
     const [currentSet, setCurrentSet] = useState(0)
     const [currentWorkoutName, setCurrentWorkoutName] = useState('Select a workout')
     const [errorMessage, setErrorMessage] = useState('')    
+    const [currentCooldownTime, setCurrentCooldownTime] = useState(0)
+    const [currentActivityTime, setCurrentActivityTime] = useState(0)
 
     const handleSelectWorkout = (e) => {
         const index = e.target.options[e.target.selectedIndex].getAttribute('data-index')
@@ -44,9 +46,14 @@ export default function Dashboard() {
         loadExistingWorkouts()
         }
     }, [session, status])
+
+    useEffect(() => {
+        setCurrentCooldownTime(currentWorkout[currentActivityIndex].cooldown[currentSet])
+        setCurrentActivityTime(currentWorkout[currentActivityIndex].time[currentSet] * 60)
+    }, [currentActivityIndex, currentSet])
     
   return (
-    <div>
+    <div className='ml-1 md:ml-6 lg:ml-24'>
         <h1 className='text-4xl'>Dashboard</h1>
         <h4 className='text-xl'>Select your workout:</h4>
         {exerciseNameArray.length === 0 ? <p>Please refresh to load your data.</p> : <select className='w-fit text-slate-800' name='workout' id='workout' placeholder='Select a workout' value={currentWorkoutName} onChange={handleSelectWorkout}>
@@ -58,9 +65,9 @@ export default function Dashboard() {
         </select>}
         {errorMessage === "" && currentWorkoutName !== 'Select a workout' ? <CurrentWorkoutComponent currentWorkout={currentWorkout} setCurrentWorkout={setCurrentWorkout} currentActivityIndex={currentActivityIndex} setCurrentActivityIndex={setCurrentActivityIndex} currentSet={currentSet} setCurrentSet={setCurrentSet} currentWorkoutName={currentWorkoutName}/> : <h4 className='text-xl'>{errorMessage}</h4>}
 
-        {currentWorkout[currentActivityIndex].time[currentSet] === '' ? null : <ActivityTimer activityTime={currentWorkout[currentActivityIndex].time[currentSet] * 60}/>}
+        {currentWorkout[currentActivityIndex].time[currentSet] === '' ? null : <ActivityTimer activityTime={currentActivityTime}/>}
 
-        {errorMessage === "" && currentWorkoutName !== 'Select a workout' ? <CooldownTimer cooldownTime={currentWorkout[currentActivityIndex].cooldown[currentSet]}/> : <p>Select a workout or create a new workout using the workout creator.</p>}
+        {errorMessage === "" && currentWorkoutName !== 'Select a workout' ? <CooldownTimer cooldownTime={currentCooldownTime}/> : <p>Select a workout or create a new workout using the workout creator.</p>}
     </div>
   )
 }

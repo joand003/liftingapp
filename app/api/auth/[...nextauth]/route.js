@@ -30,7 +30,6 @@ export const authOptions = {
         
             try {
                 const response = await db.send(new QueryCommand(params));
-                console.log(`response: ${JSON.stringify(response)}`);
                 if (response.Items.length === 0) {
                     const command = new PutCommand({
                         TableName: "liftappusers",

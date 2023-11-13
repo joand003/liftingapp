@@ -227,7 +227,7 @@ export default function WorkoutForm() {
 
     <form className='flex flex-col space-y-1'>
             <label htmlFor='name'>Workout Name:</label>
-            <input className='w-1/4 pl-1 text-slate-800' type='text' name='name' id='name' value={workoutName} onChange={handleNameChange} placeholder='Enter a name for your workout' />
+            <input className='w-48 pl-1 text-slate-800' type='text' name='name' id='name' value={workoutName} onChange={handleNameChange} placeholder='Workout name' />
             <ActivityComponent workoutArray={workoutArray} handleActivityChange={handleActivityChange} weightLiftingArray={weightLiftingArray} currentIndex={currentIndex}/>
             <div>
             <label className='' htmlFor='sets'>Sets:</label>
@@ -243,52 +243,52 @@ export default function WorkoutForm() {
                             <label htmlFor={`cooldown${index}`}>Cooldown for set {index + 1}</label>
                             <input className='w-64 pl-1 text-slate-800' type='number' name='cooldown' id={`cooldown${index}`} placeholder='Enter a cooldown time in seconds' value={workoutArray[currentIndex].cooldown[index]} onChange={handleObjectArrayChange} key={index + 'cooldownInput'}/>
                             <label htmlFor={`time${index}`}>Time for set {index + 1}</label>
-                            <input className='w-64 pl-1 mb-6 text-slate-800' type='number' name='time' id={`time${index}`} placeholder='Enter a time in minutes if needed' value={workoutArray[currentIndex].time[index]} onChange={handleObjectArrayChange} key={index + 'timeInput'}/>
+                            <input className='w-64 pl-1 text-slate-800' type='number' name='time' id={`time${index}`} placeholder='Enter a time in minutes if needed' value={workoutArray[currentIndex].time[index]} onChange={handleObjectArrayChange} key={index + 'timeInput'}/>
                         </div>
                     )
                 })}
         </form>
         <div className='pt-5'>
-            <button className='bg-purple-500 hover:bg-purple-400 px-2 h-full mr-2' onClick={handleRemoveActivity}>Remove this activity</button>
-            <button className='bg-purple-500 hover:bg-purple-400 px-2 h-full mr-2' onClick={handeAddActivity}>Add new activity</button>
-            <button className='bg-purple-500 hover:bg-purple-400 px-2 h-full mr-2' onClick={handleSumbit}>Submit</button>
+            <button className='bg-purple-500 hover:bg-purple-400 px-2 h-full mr-2 mt-2' onClick={handleRemoveActivity}>Remove this activity</button>
+            <button className='bg-purple-500 hover:bg-purple-400 px-2 h-full mr-2 mt-2' onClick={handeAddActivity}>Add new activity</button>
+            <button className='bg-purple-500 hover:bg-purple-400 px-2 h-full mr-2 mt-2' onClick={handleSumbit}>Submit/Save workout</button>
             {currentIndex === 0 ? null : <button className='bg-purple-500 hover:bg-purple-400 px-2 h-full mr-2' onClick={handlePrevious}>Previous Activity</button>}
             {currentIndex + 1 >= numberOfWorkouts ? null : <button className='bg-purple-500 hover:bg-purple-400 px-2 h-full mr-2' onClick={handleNext}>Next Activity</button> }
         </div>
-        <div>
-            <h3 className='text-2xl'>Workout Preview</h3>
+        <div className=''>
+            <h3 className='text-2xl mt-6'>Workout Preview</h3>
             <p className='text-xl'><span className='font-bold text-purple-600'>Workout Name:</span> {workoutName}</p>
             {workoutArray.map((item, index)=>{
                 return (
-                <div className='pb-10 flex flex-col max-w-5xl' key={index + 'div'}>
+                <div className='pb-8 flex flex-col' key={index + 'div'}>
                     <p key={index + 'activity'}><span className='font-bold text-purple-600'>Activity {index + 1}:</span> {item.activity}</p>
                     <p key={index + 'sets'}><span className='font-bold text-purple-600'>Sets:</span> {item.sets}</p>
-                    <div className='flex flex-row text-green-500'>
+                    <div className='flex flex-row max-w-min sm:min-w-max text-green-500'>
                         <div className='flex flex-col'>
                             {item.weight.map((item, index)=>{
                                 return (
-                                        <p key={index + 'weight'} className='pr-3'><span className='font-bold text-purple-600'>Weight:</span> {item} {item < 2 ? 'lb' : 'lbs'}</p>
+                                        <p key={index + 'weight'} className='pr-3 sm:pr-8'><span className='font-bold text-purple-600'>Weight:</span> {item} {item < 2 ? 'lb' : 'lbs'}</p>
                                 )
                             })}
                         </div>
                         <div className='flex flex-col'>
                             {item.reps.map((item, index)=>{
                                 return (
-                                        <p key={index + 'reps'} className='pr-3'><span className='font-bold text-purple-600'>Reps:</span> {item}</p>
+                                        <p key={index + 'reps'} className='pr-3 sm:pr-8'><span className='font-bold text-purple-600'>Reps:</span> {item}</p>
                                 )
                             })}
                         </div>
                         <div className='flex flex-col'>
                             {item.cooldown.map((item, index)=>{
                                 return (
-                                        <p key={index + 'cd'} className='pr-3'><span className='font-bold text-purple-600'>Cooldown:</span> {item} s</p>
+                                        <p key={index + 'cd'} className='pr-3 sm:pr-8'><span className='font-bold text-purple-600'>Cooldown:</span> {item} s</p>
                                 )
                             })}
                         </div>
                         <div className='flex flex-col'>
                             {item.time.map((item, index)=>{
                                 return (
-                                        <p key={index + 'time'} className='pr-3'><span className='font-bold text-purple-600'>Time:</span> {item} min</p>
+                                        <p key={index + 'time'} className='pr-3 sm:pr-8'><span className='font-bold text-purple-600'>Time:</span> {item} min</p>
                                 )
                             })}
                         </div>

@@ -15,6 +15,11 @@ export default function CooldownTimer({cooldownTime}) {
     const seconds = Math.floor(time % 60)
 
     useEffect(() => {
+        setTime(cooldownTime)
+        setTimerOn(false)
+    }, [cooldownTime])
+
+    useEffect(() => {
         let interval = null
 
         if (timerOn && time > 0) {
@@ -75,7 +80,7 @@ export default function CooldownTimer({cooldownTime}) {
         </div>: null}
         <div className='pl-5 flex flex-row'>
             {time > 0 ? <button className='bg-purple-500 hover:bg-color-400 rounded px-2 mr-2' onClick={toggleTimer}>{timerOn ? 'Pause' : 'Start'}</button> : null}
-            <button className='bg-purple-500 hover:bg-color-400 rounded px-2' onClick={resetTimer}>Load CD</button>
+            <button className='bg-purple-500 hover:bg-color-400 rounded px-2' onClick={resetTimer}>Reset</button>
             <button className='bg-purple-500 hover:bg-color-400 rounded px-2 mx-2' onClick={toggleTimeOptions}>{timeOptionsOn ? 'Hide options' : 'Edit time'}</button>
             {soundOn ? <BsVolumeUpFill className='hover:cursor-pointer' onClick={toggleSound} size={25}/> : <BsVolumeMuteFill className='hover:cursor-pointer' onClick={toggleSound} size={25}/>}
         </div>

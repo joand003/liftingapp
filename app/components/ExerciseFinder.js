@@ -14,9 +14,9 @@ export default function ExerciseFinder() {
     }
 
   return (
-    <div className='pt-4'>
+    <div>
         <h3 className='text-2xl'>Exercise Finder</h3>
-        <div className='flex flex-row pb-3'>
+        <div className='flex flex-col sm:flex-row pb-3'>
         <p className='pr-2'>Find exercises by name: </p>
         <input className='text-slate-800' type='text' placeholder='Enter exercise name' value={exerciseName} onChange={handleExerciseNameChange} />
         <button 
@@ -31,7 +31,7 @@ export default function ExerciseFinder() {
             setExerciseArray(dataArray)
         }}>Submit</button>
         </div>
-        <div className='flex flex-col mx-20'>
+        <div className='flex flex-col mx2 sm:mx-20'>
             {exerciseArray.length === 0 ? <p>{errorMsg}</p> : exerciseArray.map((item, index)=>{
                 return (
                 <div className='pb-10 flex flex-col max-w-5xl' key={index + 'efdiv'}>
