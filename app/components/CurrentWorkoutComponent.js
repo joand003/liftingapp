@@ -11,12 +11,13 @@ export default function CurrentWorkoutComponent({currentWorkout, setCurrentWorko
     const currentDay = daysOfWeek[currentDate.getDay()]
     const stringDate = `${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`
     const maxRounds = currentWorkout.length
+    
 
-//
 
     const handleChangeAmount = (e) => {
         if (e.target.name === 'reps') {
             let newReps = currentWorkout[currentActivityIndex].reps
+
             newReps[currentSet] += Number(e.target.value)
             if (newReps[currentSet] < 0) {
                 newReps[currentSet] = 0
@@ -26,6 +27,8 @@ export default function CurrentWorkoutComponent({currentWorkout, setCurrentWorko
         }
         if (e.target.name === 'weight') {
             let newWeight = currentWorkout[currentActivityIndex].weight
+            console.log(`newWeight[currentSet] = ${newWeight[currentSet]}`)
+            console.log(`newWeight[currentSet] = ${typeof newWeight[currentSet]}`)
             newWeight[currentSet] += Number(e.target.value)
             if (newWeight[currentSet] < 0) {
                 newWeight[currentSet] = 0
@@ -45,10 +48,10 @@ export default function CurrentWorkoutComponent({currentWorkout, setCurrentWorko
     }
 
     const handleNext = () => {
-        if (currentSet + 1 == currentWorkout[currentActivityIndex].sets && currentActivityIndex + 1 == maxRounds) {
+        if (currentSet + 1 === currentWorkout[currentActivityIndex].sets && currentActivityIndex + 1 === maxRounds) {
             return
         }
-        if (currentSet + 1 == currentWorkout[currentActivityIndex].sets) {
+        if (currentSet + 1 === currentWorkout[currentActivityIndex].sets) {
             setCurrentSet(0)
             setCurrentActivityIndex(currentActivityIndex + 1)
             return
@@ -57,10 +60,10 @@ export default function CurrentWorkoutComponent({currentWorkout, setCurrentWorko
     }
 
     const handlePrevious = () => {
-        if (currentSet == 0 && currentActivityIndex == 0) {
+        if (currentSet === 0 && currentActivityIndex === 0) {
             return
         }
-        if (currentSet == 0) {
+        if (currentSet === 0) {
             setCurrentSet(currentWorkout[currentActivityIndex - 1].sets - 1)
             setCurrentActivityIndex(currentActivityIndex - 1)
             return
@@ -97,7 +100,7 @@ export default function CurrentWorkoutComponent({currentWorkout, setCurrentWorko
                 <button onClick={handleChangeAmount} value={1} className='bg-purple-500 hover:bg-purple-400 rounded px-1 ml-2 text-xl' name='reps'>+</button>
             </div>
             <div>
-                <h4 className='text-xl'><span className='text-purple-500'>Cooldown:</span> {currentWorkout[currentActivityIndex].cooldown[currentSet]} <span className='text-green-500'>s</span></h4>
+                <h4 className='text-xl'><span className='text-purple-500'>Cooldown:</span> {currentWorkout[currentActivityIndex]?.cooldown[currentSet] ? currentWorkout[currentActivityIndex].cooldown[currentSet] : null} <span className='text-green-500'>s</span></h4>
             </div>
             <div className='pb-2'>
                 {currentWorkout[currentActivityIndex].time[currentSet] === '' ? null : <div className='flex flex-row'><h4 className='text-xl'><span className='text-purple-500'>Time:</span> {currentWorkout[currentActivityIndex].time[currentSet]}</h4>
@@ -108,9 +111,9 @@ export default function CurrentWorkoutComponent({currentWorkout, setCurrentWorko
                 </div>}
             </div>
             <div className='flex flex-row space-x-3 pl-3'>
-                <button onClick={handlePrevious} className='bg-purple-500 hover:bg-purple-400 disabled:bg-gray-500 rounded px-2' disabled={currentSet == 0 && currentActivityIndex == 0}>Previous</button>
-                <button onClick={handleNext} className='bg-purple-500 hover:bg-purple-400 rounded px-2 disabled:bg-gray-500' disabled={currentSet + 1 == currentWorkout[currentActivityIndex].sets && currentActivityIndex + 1 == maxRounds}>Next</button>
-                {currentActivityIndex + 1 == maxRounds && currentSet + 1 == currentWorkout[currentActivityIndex].sets ? <button onClick={handleSaveWorkout} disabled={isSaving} className='bg-purple-500 hover:bg-purple-400 rounded px-2'>Save Workout</button> : null}
+                <button onClick={handlePrevious} className='bg-purple-500 hover:bg-purple-400 disabled:bg-gray-500 rounded px-2' disabled={currentSet === 0 && currentActivityIndex === 0}>Previous</button>
+                <button onClick={handleNext} className='bg-purple-500 hover:bg-purple-400 rounded px-2 disabled:bg-gray-500' disabled={currentSet + 1 === currentWorkout[currentActivityIndex].sets && currentActivityIndex + 1 == maxRounds}>Next</button>
+                {currentActivityIndex + 1 === maxRounds && currentSet + 1 === currentWorkout[currentActivityIndex].sets ? <button onClick={handleSaveWorkout} disabled={isSaving} className='bg-purple-500 hover:bg-purple-400 rounded px-2'>Save Workout</button> : null}
                 {saveMessage != '' ? <h4 className='text-xl'>{saveMessage}</h4> : null}
             </div>
         </div>

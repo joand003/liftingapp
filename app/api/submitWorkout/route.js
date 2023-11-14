@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "../../../lib/db";
 import { UpdateCommand, PutCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
+import { PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { v4 as uuidv4 } from "uuid";
 
 export const POST = async (req) => {
@@ -10,15 +11,33 @@ export const POST = async (req) => {
         tempWorkoutID = uuidv4();
     }
 
-    const command = new PutCommand({
+    let formattedWorkoutArray = [];
+    formattedWorkoutArray = workoutArray.map((exercise) => {
+        return {
+            M: {
+                activity: { S: exercise.activity },
+                weight: { L: exercise.weight.map(w=> ({N: w.toString()})) },
+                reps: { L: exercise.reps.map(r=> ({N: r.toString()})) },
+                time: { L: exercise.time.map(t=> ({N: t.toString()})) },
+                cooldown: { L: exercise.cooldown.map(c=> ({N: c.toString()})) },
+                sets: { N: exercise.sets.toString() },
+            },
+        };
+    });
+        
+
+
+    const command = new PutItemCommand({
         TableName: "workouts",
         Item: {
-            uid: uid.toString(),
-            workoutID: tempWorkoutID.toString(),
-            workoutName,
-            workoutArray,
+            uid: {S: uid.toString()},
+            workoutID: {S: tempWorkoutID.toString()},
+            workoutName: {S: workoutName.toString()},
+            workoutArray: {L: formattedWorkoutArray},
         },
     });
+
+
     try {
         await db.send(command);
     } catch (error) {
