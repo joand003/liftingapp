@@ -16,10 +16,27 @@ export const POST = async (req) => {
         return {
             M: {
                 activity: { S: exercise.activity },
-                weight: { L: exercise.weight.map(w=> ({N: w.toString()})) },
-                reps: { L: exercise.reps.map(r=> ({N: r.toString()})) },
-                time: { L: exercise.time.map(t=> ({N: t.toString()})) },
-                cooldown: { L: exercise.cooldown.map(c=> ({N: c.toString()})) },
+                weight: { L: exercise.weight.map(w=> {
+                    if (w === "") {
+                        return {N: "0"}
+                    }
+                    return ({N:  w.toString()})
+                }) },
+                reps: { L: exercise.reps.map(r=> {
+                    if (r === "") {
+                        return {N: "0"}
+                    }
+                    return ({N: r.toString()})}) },
+                time: { L: exercise.time.map(t=> {
+                    if (t === "") {
+                        return {N: "0"}
+                    }
+                    return ({N: t.toString()})}) },
+                cooldown: { L: exercise.cooldown.map(c=> {
+                    if (c === "") {
+                        return {N: "0"}
+                    }
+                    return ({N: c.toString()})}) },
                 sets: { N: exercise.sets.toString() },
             },
         };
