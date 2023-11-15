@@ -67,7 +67,7 @@ export default function ActivityTimer({activityTime}) {
     }
 
   return (
-    <div>
+    <div className='my-1 p-2 border border-r-1 border-teal-500 w-full bg-gray-700'>
         <h3 className='text-2xl'>Activity Timer</h3>
         <div className='text-3xl text-purple-200 pl-10 pb-2'>{hours}:{minutes < 10 ? '0' + minutes : minutes}:{seconds < 10 ? '0' + seconds : seconds}</div>
         {timeOptionsOn ? <div className='pb-2'>

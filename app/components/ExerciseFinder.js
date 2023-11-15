@@ -14,8 +14,9 @@ export default function ExerciseFinder() {
     }
 
   return (
-    <div>
+    <div className='mx-4'>
         <h3 className='text-2xl'>Exercise Finder</h3>
+        <h4 className='text-xl'>You can use the ExerciseFinder below to learn more about different exercises.</h4>
         <div className='flex flex-col sm:flex-row pb-3'>
         <p className='pr-2'>Find exercises by name: </p>
         <input className='text-slate-800' type='text' placeholder='Enter exercise name' value={exerciseName} onChange={handleExerciseNameChange} />
@@ -31,10 +32,10 @@ export default function ExerciseFinder() {
             setExerciseArray(dataArray)
         }}>Submit</button>
         </div>
-        <div className='flex flex-col mx2 sm:mx-20'>
+        <div className='flex flex-col mx-2 sm:mx-20 2xl:mx-4'>
             {exerciseArray.length === 0 ? <p>{errorMsg}</p> : exerciseArray.map((item, index)=>{
                 return (
-                <div className='pb-10 flex flex-col max-w-5xl' key={index + 'efdiv'}>
+                <div className='mb-4 flex flex-col max-w-5xl border border-r-1 p-2 border-teal-500' key={index + 'efdiv'}>
                     <p key={item.name + index}><span className='font-bold text-purple-600'>Name:</span> {item.name}</p>
                     <p key={item.muscle + index}><span className='font-bold text-purple-600'>Muscle:</span> {item.muscle}</p>
                     <p key={item.equipment + index}><span className='font-bold text-purple-600'>Equipment:</span> {item.equipment}</p>

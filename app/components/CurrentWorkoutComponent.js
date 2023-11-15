@@ -27,8 +27,6 @@ export default function CurrentWorkoutComponent({currentWorkout, setCurrentWorko
         }
         if (e.target.name === 'weight') {
             let newWeight = currentWorkout[currentActivityIndex].weight
-            console.log(`newWeight[currentSet] = ${newWeight[currentSet]}`)
-            console.log(`newWeight[currentSet] = ${typeof newWeight[currentSet]}`)
             newWeight[currentSet] += Number(e.target.value)
             if (newWeight[currentSet] < 0) {
                 newWeight[currentSet] = 0
@@ -82,39 +80,43 @@ export default function CurrentWorkoutComponent({currentWorkout, setCurrentWorko
 
   return (
     <div className='flex flex-col'>
-            <h4 className='text-3xl font-bold text-purple-500'>Workout:</h4>        
-            <h4 className='text-xl'><span className='text-purple-500'>Day:</span> {currentDay}, {stringDate}</h4>
-            <h4 className='text-xl'><span className='text-purple-500'>Name:</span> {currentWorkoutName}</h4>
-            <h4 className='text-xl'><span className='text-purple-500'>Activity:</span> {currentActivityIndex + 1}/{maxRounds}, {currentWorkout[currentActivityIndex].activity}</h4>
-            <h4 className='text-xl'><span className='text-purple-500'>Set:</span> {currentSet + 1} / {currentWorkout[currentActivityIndex].sets}</h4>
-            <div className='flex flex-row'>
+            <div className='my-1 p-2 border border-r-1 border-teal-500 w-full'>
+                <h4 className='text-3xl font-bold text-center text-purple-500'>Workout:</h4>        
+                <h4 className='text-xl'><span className='text-purple-500'>Day:</span> {currentDay}, {stringDate}</h4>
+                <h4 className='text-xl'><span className='text-purple-500'>Name:</span> {currentWorkoutName}</h4>
+                <h4 className='text-xl'><span className='text-purple-500'>Activity:</span> {currentActivityIndex + 1} of {maxRounds}, {currentWorkout[currentActivityIndex].activity}</h4>
+                <h4 className='text-xl'><span className='text-purple-500'>Set</span> {currentSet + 1} of {currentWorkout[currentActivityIndex].sets}</h4>
+            </div>
+            {currentWorkout[currentActivityIndex].weight[currentSet] > 0 ? <div className='my-1 flex flex-row p-2 border border-r-1 border-teal-500 w-full'>
                 <h4 className='text-xl'><span className='text-purple-500'>Weight:</span> {currentWorkout[currentActivityIndex].weight[currentSet]}
                 <span className='text-green-500 pl-1'>{currentWorkout[currentActivityIndex].weight[currentSet] < 2 ? 'lb' : 'lbs'}</span>
                 </h4>
                 <button onClick={handleChangeAmount} value={-5} className='bg-purple-500 hover:bg-purple-400 rounded px-1 ml-2 text-xl' name='weight'>-</button>
                 <button onClick={handleChangeAmount} value={5} className='bg-purple-500 hover:bg-purple-400 rounded px-1 ml-2 text-xl' name='weight'>+</button>
-            </div>
-            <div className='flex flex-row'>
-                <h4 className='text-xl'><span className='text-purple-500'>Reps:</span> {currentWorkout[currentActivityIndex].reps[currentSet]}</h4> 
+            </div> : null }
+            {currentWorkout[currentActivityIndex].reps[currentSet] > 0 ? <div className='my-1 flex flex-row p-2 border border-r-1 border-teal-500 w-full'>
+                <h4 className='text-xl'><span className='text-purple-500'># of Reps:</span> {currentWorkout[currentActivityIndex].reps[currentSet]}</h4> 
                 <button onClick={handleChangeAmount} value={-1} className='bg-purple-500 hover:bg-purple-400 rounded px-1 ml-2 text-xl' name='reps'>-</button>
-                <button onClick={handleChangeAmount} value={1} className='bg-purple-500 hover:bg-purple-400 rounded px-1 ml-2 text-xl' name='reps'>+</button>
-            </div>
-            <div>
-                <h4 className='text-xl'><span className='text-purple-500'>Cooldown:</span> {currentWorkout[currentActivityIndex]?.cooldown[currentSet] ? currentWorkout[currentActivityIndex].cooldown[currentSet] : null} <span className='text-green-500'>s</span></h4>
-            </div>
-            <div className='pb-2'>
-                {currentWorkout[currentActivityIndex].time[currentSet] === '' ? null : <div className='flex flex-row'><h4 className='text-xl'><span className='text-purple-500'>Time:</span> {currentWorkout[currentActivityIndex].time[currentSet]}</h4>
+                <button onClick={handleChangeAmount} value={1} className='bg-purple-500 hover:bg-purple-400 rounded px-1 ml-2 text-xl' name='reps'>+</button> 
+            </div> : null }
+            {currentWorkout[currentActivityIndex].cooldown[currentSet] > 0 ? <div className='my-1 p-2 border border-r-1 border-teal-500 w-full'>
+                <h4 className='text-xl'><span className='text-purple-500'>Cooldown time:</span> {currentWorkout[currentActivityIndex]?.cooldown[currentSet] ? currentWorkout[currentActivityIndex].cooldown[currentSet] : null} <span className='text-green-500'>s</span></h4>
+            </div> : null } 
+            {currentWorkout[currentActivityIndex].time[currentSet] > 0 ? <div className='my-1 p-2 border border-r-1 border-teal-500 w-full'>
+                {currentWorkout[currentActivityIndex].time[currentSet] === '' ? null : <div className='flex flex-row'><h4 className='text-xl'><span className='text-purple-500'>Activity Time:</span> {currentWorkout[currentActivityIndex].time[currentSet]}</h4>
                 <button onClick={handleChangeAmount} value={-1} className='bg-purple-500 hover:bg-purple-400 rounded px-1 ml-2 text-xl' name='minTime'>-1</button>
                 <button onClick={handleChangeAmount} value={-5} className='bg-purple-500 hover:bg-purple-400 rounded px-1 ml-2 text-xl' name='minTime'>-5</button>
                 <button onClick={handleChangeAmount} value={5} className='bg-purple-500 hover:bg-purple-400 rounded px-1 ml-2 text-xl' name='minTime'>+5</button>
                 <button onClick={handleChangeAmount} value={1} className='bg-purple-500 hover:bg-purple-400 rounded px-1 ml-2 text-xl' name='minTime'>+1</button>
                 </div>}
+            </div> : null}
+            <div className='my-1 flex flex-row space-x-2 justify-evenly'>
+                <button onClick={handlePrevious} className='bg-purple-500 hover:bg-purple-400 disabled:bg-gray-500 rounded px-2 flex-grow' disabled={currentSet === 0 && currentActivityIndex === 0}>Previous</button>
+                <button onClick={handleNext} className='bg-purple-500 hover:bg-purple-400 rounded px-2 disabled:bg-gray-500 flex-grow' disabled={currentSet + 1 === currentWorkout[currentActivityIndex].sets && currentActivityIndex + 1 == maxRounds}>Next</button>
+                
             </div>
-            <div className='flex flex-row space-x-3 pl-3'>
-                <button onClick={handlePrevious} className='bg-purple-500 hover:bg-purple-400 disabled:bg-gray-500 rounded px-2' disabled={currentSet === 0 && currentActivityIndex === 0}>Previous</button>
-                <button onClick={handleNext} className='bg-purple-500 hover:bg-purple-400 rounded px-2 disabled:bg-gray-500' disabled={currentSet + 1 === currentWorkout[currentActivityIndex].sets && currentActivityIndex + 1 == maxRounds}>Next</button>
-                {currentActivityIndex + 1 === maxRounds && currentSet + 1 === currentWorkout[currentActivityIndex].sets ? <button onClick={handleSaveWorkout} disabled={isSaving} className='bg-purple-500 hover:bg-purple-400 rounded px-2'>Save Workout</button> : null}
-                {saveMessage != '' ? <h4 className='text-xl'>{saveMessage}</h4> : null}
+            <div className='my-1'>
+                {currentActivityIndex + 1 === maxRounds && currentSet + 1 === currentWorkout[currentActivityIndex].sets ? <button onClick={handleSaveWorkout} disabled={isSaving} className='bg-purple-500 hover:bg-purple-400 rounded px-2 w-full'>Save Workout</button> : null}{saveMessage != '' ? <h4 className='text-xl'>{saveMessage}</h4> : null}
             </div>
         </div>
   )

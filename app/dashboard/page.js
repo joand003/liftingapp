@@ -10,7 +10,7 @@ export default function Dashboard() {
     const { data: session, status } = useSession();
     const [exerciseListArray, setExerciseListArray] = useState([])
     const [exerciseNameArray, setExerciseNameArray] = useState([])
-    const [currentWorkout, setCurrentWorkout] = useState([{activity: '', weight: [''], sets: 1, reps: [''], cooldown: [''], time: ['']}])
+    const [currentWorkout, setCurrentWorkout] = useState([{activity: '', weight: [0], sets: 1, reps: [0], cooldown: [0], time: [0]}])
     const [currentActivityIndex, setCurrentActivityIndex] = useState(0)
     const [currentSet, setCurrentSet] = useState(0)
     const [currentWorkoutName, setCurrentWorkoutName] = useState('Select a workout')
@@ -50,13 +50,13 @@ export default function Dashboard() {
     useEffect(() => {
         setCurrentCooldownTime(currentWorkout[currentActivityIndex].cooldown[currentSet])
         setCurrentActivityTime(currentWorkout[currentActivityIndex].time[currentSet] * 60)
-    }, [currentActivityIndex, currentSet])
+    }, [currentActivityIndex, currentSet, currentWorkout])
     
   return (
-    <div className='ml-1 md:ml-6 lg:ml-24'>
-        <h1 className='text-4xl'>Dashboard</h1>
+    <div className='ml-1 md:ml-6 lg:ml-24 w-fit'>
+        <h1 className='text-4xl text-center'>Dashboard</h1>
         <h4 className='text-xl'>Select your workout:</h4>
-        {exerciseNameArray.length === 0 ? <p>Please refresh to load your data.</p> : <select className='w-fit text-slate-800' name='workout' id='workout' placeholder='Select a workout' value={currentWorkoutName} onChange={handleSelectWorkout}>
+        {exerciseNameArray.length === 0 ? <p>Please refresh to load your data.</p> : <select className='w-full my-1 text-slate-800 text-center' name='workout' id='workout' placeholder='Select a workout' value={currentWorkoutName} onChange={handleSelectWorkout}>
             <option value='Select a workout' disabled={currentWorkoutName !== 'Select a workout'}>Select a workout</option>
             {exerciseNameArray.map((item, index)=>{
                 return <option value={item} key={index + 'exerciseArrays'} data-index={index} >{item}</option>
@@ -65,7 +65,7 @@ export default function Dashboard() {
         </select>}
         {errorMessage === "" && currentWorkoutName !== 'Select a workout' ? <CurrentWorkoutComponent currentWorkout={currentWorkout} setCurrentWorkout={setCurrentWorkout} currentActivityIndex={currentActivityIndex} setCurrentActivityIndex={setCurrentActivityIndex} currentSet={currentSet} setCurrentSet={setCurrentSet} currentWorkoutName={currentWorkoutName}/> : <h4 className='text-xl'>{errorMessage}</h4>}
 
-        {currentWorkout[currentActivityIndex].time[currentSet] === '' ? null : <ActivityTimer activityTime={currentActivityTime}/>}
+        {currentWorkout[currentActivityIndex].time[currentSet] === 0 ? null : <ActivityTimer activityTime={currentActivityTime}/>}
 
         {errorMessage === "" && currentWorkoutName !== 'Select a workout' ? <CooldownTimer cooldownTime={currentCooldownTime}/> : <p>Select a workout or create a new workout using the workout creator.</p>}
     </div>

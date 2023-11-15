@@ -67,21 +67,21 @@ export default function CooldownTimer({cooldownTime}) {
     }
 
   return (
-    <div>
-        <h3 className='text-2xl'>Cooldown Timer</h3>
-        <div className='text-3xl text-purple-200 pl-10 pb-2'>{minutes < 10 ? '0' + minutes : minutes}:{seconds < 10 ? '0' + seconds : seconds}</div>
+    <div className='my-1 p-2 border border-r-1 border-teal-500 w-full bg-gray-700'>
+        <h3 className='text-2xl text-center'>Cooldown Timer</h3>
+        <div className='text-3xl text-purple-200 pl-10 pb-2 text-center'>{minutes < 10 ? '0' + minutes : minutes}:{seconds < 10 ? '0' + seconds : seconds}</div>
         {timeOptionsOn ? <div className='pb-2'>
-            <button onClick={changeTime} value={30} className='bg-purple-500 hover:bg-color-400 rounded px-2 mr-2 mt-2'>+30s</button>
-            <button onClick={changeTime} value={5} className='bg-purple-500 hover:bg-color-400 rounded px-2 mr-2 mt-2'>+5s</button>
-            <button onClick={changeTime} value={1} className='bg-purple-500 hover:bg-color-400 rounded px-2 mr-2 mt-2'>+1s</button>
-            <button onClick={changeTime} value={-30} className='bg-purple-500 hover:bg-color-400 rounded px-2 mr-2 mt-2'>-30s</button>
-            <button onClick={changeTime} value={-5} className='bg-purple-500 hover:bg-color-400 rounded px-2 mr-2 mt-2'>-5s</button>
-            <button onClick={changeTime} value={-1} className='bg-purple-500 hover:bg-color-400 rounded px-2 mr-2 mt-2'>-1s</button>
+            <button onClick={changeTime} value={30} className='bg-purple-500 hover:bg-purple-400 rounded px-2 mr-2 mt-2'>+30s</button>
+            <button onClick={changeTime} value={5} className='bg-purple-500 hover:bg-purple-400 rounded px-2 mr-2 mt-2'>+5s</button>
+            <button onClick={changeTime} value={1} className='bg-purple-500 hover:bg-purple-400 rounded px-2 mr-2 mt-2'>+1s</button>
+            <button onClick={changeTime} value={-1} className='bg-purple-500 hover:bg-purple-400 rounded px-2 mr-2 mt-2'>-1s</button>
+            <button onClick={changeTime} value={-5} className='bg-purple-500 hover:bg-purple-400 rounded px-2 mr-2 mt-2'>-5s</button>
+            <button onClick={changeTime} value={-30} className='bg-purple-500 hover:bg-purple-400 rounded px-2 mr-2 mt-2'>-30s</button>
         </div>: null}
-        <div className='pl-5 flex flex-row'>
-            {time > 0 ? <button className='bg-purple-500 hover:bg-color-400 rounded px-2 mr-2' onClick={toggleTimer}>{timerOn ? 'Pause' : 'Start'}</button> : null}
-            <button className='bg-purple-500 hover:bg-color-400 rounded px-2' onClick={resetTimer}>Reset</button>
-            <button className='bg-purple-500 hover:bg-color-400 rounded px-2 mx-2' onClick={toggleTimeOptions}>{timeOptionsOn ? 'Hide options' : 'Edit time'}</button>
+        <div className='pl-5 flex flex-row justify-center'>
+            {time > 0 ? <button className='bg-purple-500 hover:bg-purple-400 rounded px-2 mr-2' onClick={toggleTimer}>{timerOn ? 'Pause' : 'Start'}</button> : null}
+            <button className='bg-purple-500 hover:bg-purple-400 rounded px-2' onClick={resetTimer}>Reset</button>
+            <button className='bg-purple-500 hover:bg-purple-400 rounded px-2 mx-2' onClick={toggleTimeOptions}>{timeOptionsOn ? 'Hide options' : 'Edit time'}</button>
             {soundOn ? <BsVolumeUpFill className='hover:cursor-pointer' onClick={toggleSound} size={25}/> : <BsVolumeMuteFill className='hover:cursor-pointer' onClick={toggleSound} size={25}/>}
         </div>
     </div>
