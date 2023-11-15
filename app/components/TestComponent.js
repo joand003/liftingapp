@@ -3,6 +3,8 @@ import React from 'react'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 
+// THIS IS A TEST COMPONENT TO TEST API CALLS it has no use in the app
+
 export default function TestComponent() {
     const { data: session } = useSession();
 
