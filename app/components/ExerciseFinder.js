@@ -16,7 +16,7 @@ export default function ExerciseFinder() {
   return (
     <div className='flex justify-center mt-12'>
     <div className='mx-10'>
-        <h3 className='text-2xl'>Exercise Finder</h3>
+        <h2 className='text-3xl'>Exercise Finder</h2>
         <h4 className='text-xl'>You can use the ExerciseFinder below to learn more about different exercises.</h4>
         <div className='flex flex-col sm:flex-row pb-3'>
         <p className='pr-2'>Find exercises by name: </p>

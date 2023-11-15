@@ -3,7 +3,7 @@ import React from 'react'
 export default function WorkoutPreview({workoutArray, workoutName}) {
   return (
     // mx-4
-    <div className="">
+    <div className="lg:ml-6">
         <h2 className="text-3xl mt-6">Workout Preview</h2>
         <p className="text-xl">
           <span className="font-bold text-purple-600">Workout Name:</span>{" "}
