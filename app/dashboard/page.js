@@ -53,7 +53,10 @@ export default function Dashboard() {
     }, [currentActivityIndex, currentSet, currentWorkout])
     
   return (
-    <div className='ml-1 md:ml-6 lg:ml-24 w-fit'>
+    <div className='flex justify-center'>
+    <div className='flex flex-col sm:flex-row'>
+        <div>
+        <div className=''>
         <h1 className='text-4xl text-center'>Dashboard</h1>
         <h4 className='text-xl'>Select your workout:</h4>
         {exerciseNameArray.length === 0 ? <p>Please refresh to load your data.</p> : <select className='w-full my-1 text-slate-800 text-center' name='workout' id='workout' placeholder='Select a workout' value={currentWorkoutName} onChange={handleSelectWorkout}>
@@ -63,11 +66,20 @@ export default function Dashboard() {
             }
             )}
         </select>}
+        </div>
+        <div className=''>
         {errorMessage === "" && currentWorkoutName !== 'Select a workout' ? <CurrentWorkoutComponent currentWorkout={currentWorkout} setCurrentWorkout={setCurrentWorkout} currentActivityIndex={currentActivityIndex} setCurrentActivityIndex={setCurrentActivityIndex} currentSet={currentSet} setCurrentSet={setCurrentSet} currentWorkoutName={currentWorkoutName}/> : <h4 className='text-xl'>{errorMessage}</h4>}
-
+        </div>
+        </div>
+        <div className='sm:ml-6 flex flex-col lg:flex-row'>
+        <div className='sm:mt-16'>
         {currentWorkout[currentActivityIndex].time[currentSet] === 0 ? null : <ActivityTimer activityTime={currentActivityTime}/>}
-
+        </div>
+        <div className='lg:ml-6 lg:mt-16'>
         {errorMessage === "" && currentWorkoutName !== 'Select a workout' ? <CooldownTimer cooldownTime={currentCooldownTime}/> : <p>Select a workout or create a new workout using the workout creator.</p>}
+        </div>
+        </div>
+    </div>
     </div>
   )
 }

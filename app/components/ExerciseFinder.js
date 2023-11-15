@@ -14,7 +14,8 @@ export default function ExerciseFinder() {
     }
 
   return (
-    <div className='mx-4'>
+    <div className='flex justify-center mt-12'>
+    <div className='mx-10'>
         <h3 className='text-2xl'>Exercise Finder</h3>
         <h4 className='text-xl'>You can use the ExerciseFinder below to learn more about different exercises.</h4>
         <div className='flex flex-col sm:flex-row pb-3'>
@@ -32,7 +33,7 @@ export default function ExerciseFinder() {
             setExerciseArray(dataArray)
         }}>Submit</button>
         </div>
-        <div className='flex flex-col mx-2 sm:mx-20 2xl:mx-4'>
+        <div className='flex flex-col'>
             {exerciseArray.length === 0 ? <p>{errorMsg}</p> : exerciseArray.map((item, index)=>{
                 return (
                 <div className='mb-4 flex flex-col max-w-5xl border border-r-1 p-2 border-teal-500' key={index + 'efdiv'}>
@@ -44,6 +45,7 @@ export default function ExerciseFinder() {
                 )
             })}
         </div>
+    </div>
     </div>
   )
 }

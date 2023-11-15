@@ -2,7 +2,8 @@ import React from 'react'
 
 export default function WorkoutPreview({workoutArray, workoutName}) {
   return (
-    <div className="mx-4">
+    // mx-4
+    <div className="">
         <h2 className="text-3xl mt-6">Workout Preview</h2>
         <p className="text-xl">
           <span className="font-bold text-purple-600">Workout Name:</span>{" "}
@@ -11,7 +12,7 @@ export default function WorkoutPreview({workoutArray, workoutName}) {
         {workoutArray.map((item, index) => {
           return (
             <div
-              className="mb-4 flex flex-col border border-r-1 border-teal-500 p-2"
+              className="mb-4 flex flex-col border border-r-1 border-teal-500 p-2 w-fit"
               key={index + "div"}
             >
               <p key={index + "activity"}>

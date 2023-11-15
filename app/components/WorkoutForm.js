@@ -4,28 +4,17 @@ import weightLiftingArray from "@/utils/weightLiftingArray";
 import ActivityComponent from "./ActivityComponent";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import WorkoutPreview from "./WorkoutPreview";
 
-export default function WorkoutForm() {
+export default function WorkoutForm({workoutArray, workoutName, blankWorkout, setWorkoutArray, setWorkoutName}) {
   const { data: session } = useSession();
   const [exerciseListArray, setExerciseListArray] = useState([]);
   const [exerciseNameArray, setExerciseNameArray] = useState([]);
   const [workoutIDArray, setWorkoutIDArray] = useState([]);
-  const [workoutName, setWorkoutName] = useState("");
   const [workoutID, setWorkoutID] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [usingExistingWorkout, setUsingExistingWorkout] = useState(false);
-  const blankWorkout = {
-    activity: "",
-    weight: [""],
-    sets: 1,
-    reps: [""],
-    cooldown: [""],
-    time: [""],
-  };
-  const [workoutArray, setWorkoutArray] = useState([blankWorkout]);
   const numberOfRadioDials = 5; //Max # is 9 to avoid errors in handleObjectyArrayChange (Should be fine as no one does more then 9 sets)
   const numberOfWorkouts = workoutArray.length;
 
@@ -305,11 +294,10 @@ export default function WorkoutForm() {
   }, [workoutArray[currentIndex].sets]);
 
   return (
-    <div className="lg:flex lg:flex-row">
-      <div className="2xl:w-1/3 lg:w-2/4">
-        <div>
+      <div className="w-fit"> 
+        <div className="">
           <h1 className='text-4xl pb-2'>Workout Creator</h1>
-          <h4 className='text-xl'>Please select a workout to edit or start creating a new workout.</h4>
+          <h4 className='text-xl '>Please select a workout to edit or start creating a new workout.</h4>
           <div className="">
           <button
             className="bg-purple-500 hover:bg-purple-400 px-2 h-full m-2"
@@ -461,35 +449,32 @@ export default function WorkoutForm() {
               Add new activity
             </button>
             </div>
-            <div>
+            
+          <div className="flex flex-row my-2">
+              <button
+                className="bg-purple-500 hover:bg-purple-400 px-2 h-full mr-2 whitespace-nowrap disabled:bg-gray-500"
+                onClick={handlePrevious}
+                disabled={currentIndex === 0}
+              >
+                Previous Activity
+              </button>
+              <button
+                className="bg-purple-500 hover:bg-purple-400 px-2 h-full mr-2 whitespace-nowrap disabled:bg-gray-500"
+                onClick={handleNext}
+                disabled={currentIndex + 1 >= numberOfWorkouts}
+              >
+                Next Activity
+              </button>
+          </div>
+          <div className="flex flex-row my-2">
             <button
-              className="bg-purple-500 hover:bg-purple-400 px-2 h-full mr-2 mt-2 whitespace-nowrap"
+              className="bg-purple-500 hover:bg-purple-400 px-2 h-full mr-2 whitespace-nowrap w-fit"
               onClick={handleSumbit}
             >
               Submit/Save workout
             </button>
           </div>
-          <div className="flex flex-row my-2">
-            {currentIndex === 0 ? null : (
-              <button
-                className="bg-purple-500 hover:bg-purple-400 px-2 h-full mr-2 whitespace-nowrap"
-                onClick={handlePrevious}
-              >
-                Previous Activity
-              </button>
-            )}
-            {currentIndex + 1 >= numberOfWorkouts ? null : (
-              <button
-                className="bg-purple-500 hover:bg-purple-400 px-2 h-full mr-2 whitespace-nowrap"
-                onClick={handleNext}
-              >
-                Next Activity
-              </button>
-            )}
-          </div>
         </div>
       </div>
-      <WorkoutPreview workoutArray={workoutArray} workoutName={workoutName}/>
-    </div>
   );
 }
