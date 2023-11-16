@@ -17,11 +17,14 @@ export default function Dashboard() {
     const [errorMessage, setErrorMessage] = useState('')    
     const [currentCooldownTime, setCurrentCooldownTime] = useState(0)
     const [currentActivityTime, setCurrentActivityTime] = useState(0)
+    const [workoutType, setWorkoutType] = useState('straightSets')
 
     const handleSelectWorkout = (e) => {
         const index = e.target.options[e.target.selectedIndex].getAttribute('data-index')
         setCurrentWorkout(exerciseListArray[index])
         setCurrentWorkoutName(exerciseNameArray[index])
+        setCurrentActivityIndex(0)
+        setCurrentSet(0)
     }
 
     const loadExistingWorkouts = async() => {
@@ -41,6 +44,10 @@ export default function Dashboard() {
         setExerciseListArray(tempWorkoutArray)
     }
 
+    const handleWorkoutType = (e) => {
+        setWorkoutType(e.target.value)
+    }
+
     useEffect(() => {
         if (status === 'authenticated' && session) {
         loadExistingWorkouts()
@@ -58,7 +65,7 @@ export default function Dashboard() {
         <div>
         <div className=''>
         <h1 className='text-4xl text-center'>Dashboard</h1>
-        <h4 className='text-xl'>Select your workout:</h4>
+        {exerciseListArray.length != 0 ? <h4 className='text-xl'>Select your workout:</h4> : <h4>Create a new workout using the workout creator.</h4>}
         {exerciseNameArray.length === 0 ? <p>Please refresh to load your data.</p> : <select className='w-full my-1 text-slate-800 text-center' name='workout' id='workout' placeholder='Select a workout' value={currentWorkoutName} onChange={handleSelectWorkout}>
             <option value='Select a workout' disabled={currentWorkoutName !== 'Select a workout'}>Select a workout</option>
             {exerciseNameArray.map((item, index)=>{
@@ -66,9 +73,13 @@ export default function Dashboard() {
             }
             )}
         </select>}
+        <div>
+        <label className="">Straight Sets</label><input type="radio" name="workoutType" value="straightSets" className="mx-2" onChange={handleWorkoutType} checked={workoutType === "straightSets"}/>
+        <label className="">Circuit Sets</label><input type="radio" name="workoutType" value="circuitSets" className="mx-2" onChange={handleWorkoutType} checked={workoutType === "circuitSets"}/>
+        </div>
         </div>
         <div className=''>
-        {errorMessage === "" && currentWorkoutName !== 'Select a workout' ? <CurrentWorkoutComponent currentWorkout={currentWorkout} setCurrentWorkout={setCurrentWorkout} currentActivityIndex={currentActivityIndex} setCurrentActivityIndex={setCurrentActivityIndex} currentSet={currentSet} setCurrentSet={setCurrentSet} currentWorkoutName={currentWorkoutName}/> : <h4 className='text-xl'>{errorMessage}</h4>}
+        {errorMessage === "" && currentWorkoutName !== 'Select a workout' ? <CurrentWorkoutComponent workoutType={workoutType} currentWorkout={currentWorkout} setCurrentWorkout={setCurrentWorkout} currentActivityIndex={currentActivityIndex} setCurrentActivityIndex={setCurrentActivityIndex} currentSet={currentSet} setCurrentSet={setCurrentSet} currentWorkoutName={currentWorkoutName}/> : <h4 className='text-xl'>{errorMessage}</h4>}
         </div>
         </div>
         <div className='sm:ml-6 flex flex-col lg:flex-row'>
@@ -76,7 +87,7 @@ export default function Dashboard() {
         {currentWorkout[currentActivityIndex].time[currentSet] === 0 ? null : <ActivityTimer activityTime={currentActivityTime}/>}
         </div>
         <div className='lg:ml-6 lg:mt-16'>
-        {errorMessage === "" && currentWorkoutName !== 'Select a workout' ? <CooldownTimer cooldownTime={currentCooldownTime}/> : <p>Select a workout or create a new workout using the workout creator.</p>}
+        {errorMessage === "" && currentWorkoutName !== 'Select a workout' ? <CooldownTimer cooldownTime={currentCooldownTime}/> : null}
         </div>
         </div>
     </div>
