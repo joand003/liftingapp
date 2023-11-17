@@ -10,8 +10,10 @@ export default function Dashboard() {
     const { data: session, status } = useSession();
     const [exerciseListArray, setExerciseListArray] = useState([])
     const [exerciseNameArray, setExerciseNameArray] = useState([])
+    const [exerciseIDArray, setExerciseIDArray] = useState([])
     const [currentWorkout, setCurrentWorkout] = useState([{activity: '', weight: [0], sets: 1, reps: [0], cooldown: [0], time: [0]}])
     const [currentActivityIndex, setCurrentActivityIndex] = useState(0)
+    const [currentWorkoutID, setCurrentWorkoutID] = useState('') 
     const [currentSet, setCurrentSet] = useState(0)
     const [currentWorkoutName, setCurrentWorkoutName] = useState('Select a workout')
     const [errorMessage, setErrorMessage] = useState('')    
@@ -23,6 +25,7 @@ export default function Dashboard() {
         const index = e.target.options[e.target.selectedIndex].getAttribute('data-index')
         setCurrentWorkout(exerciseListArray[index])
         setCurrentWorkoutName(exerciseNameArray[index])
+        setCurrentWorkoutID(exerciseIDArray[index])
         setCurrentActivityIndex(0)
         setCurrentSet(0)
     }
@@ -40,8 +43,12 @@ export default function Dashboard() {
         const tempExerciseNameArray = response.data.data.map((item) => {
             return (item.workoutName)
         })
+        const tempExerciseIDArray = response.data.data.map((item) => {
+            return (item.workoutID)
+        })
         setExerciseNameArray(tempExerciseNameArray)
         setExerciseListArray(tempWorkoutArray)
+        setExerciseIDArray(tempExerciseIDArray)
     }
 
     const handleWorkoutType = (e) => {
@@ -79,7 +86,7 @@ export default function Dashboard() {
         </div>
         </div>
         <div className=''>
-        {errorMessage === "" && currentWorkoutName !== 'Select a workout' ? <CurrentWorkoutComponent workoutType={workoutType} currentWorkout={currentWorkout} setCurrentWorkout={setCurrentWorkout} currentActivityIndex={currentActivityIndex} setCurrentActivityIndex={setCurrentActivityIndex} currentSet={currentSet} setCurrentSet={setCurrentSet} currentWorkoutName={currentWorkoutName}/> : <h4 className='text-xl'>{errorMessage}</h4>}
+        {errorMessage === "" && currentWorkoutName !== 'Select a workout' ? <CurrentWorkoutComponent workoutType={workoutType} currentWorkout={currentWorkout} setCurrentWorkout={setCurrentWorkout} currentActivityIndex={currentActivityIndex} setCurrentActivityIndex={setCurrentActivityIndex} currentSet={currentSet} setCurrentSet={setCurrentSet} currentWorkoutName={currentWorkoutName} currentWorkoutID={currentWorkoutID}/> : <h4 className='text-xl'>{errorMessage}</h4>}
         </div>
         </div>
         <div className='sm:ml-6 flex flex-col lg:flex-row'>

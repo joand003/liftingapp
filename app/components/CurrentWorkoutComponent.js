@@ -11,6 +11,7 @@ export default function CurrentWorkoutComponent({
     setCurrentSet,
     currentWorkoutName,
     workoutType,
+    currentWorkoutID,
 }) {
     const { data: session, status } = useSession();
     const [isSaving, setIsSaving] = useState(false);
@@ -186,9 +187,9 @@ export default function CurrentWorkoutComponent({
         setSaveMessage("Saving...");
         await axios.post("/api/submitWorkout", {
             uid: session.user.id,
-            workoutName,
-            workoutArray,
-            workoutID,
+            workoutName: currentWorkoutName,
+            workoutArray: currentWorkout,
+            workoutID: currentWorkoutID,
         });
         setSaveMessage("");
         setIsSaving(false);
