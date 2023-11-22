@@ -21,7 +21,7 @@ export default function WorkoutForm({workoutArray, workoutName, blankWorkout, se
   const handeAddActivity = () => {
     let newWorkoutArray = [...workoutArray, blankWorkout];
     setWorkoutArray(newWorkoutArray);
-    setCurrentIndex(currentIndex + 1);
+    setCurrentIndex(newWorkoutArray.length - 1);
   };
 
   const handleRemoveActivity = () => {
@@ -43,7 +43,7 @@ export default function WorkoutForm({workoutArray, workoutName, blankWorkout, se
       alert("Please enter a name for your workout");
       return;
     }
-    const response = await axios.post("/api/submitWorkout", {
+    response = await axios.post("/api/submitWorkout", {
       uid: session.user.id,
       workoutName,
       workoutArray,
