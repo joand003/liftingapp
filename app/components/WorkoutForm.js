@@ -170,6 +170,8 @@ export default function WorkoutForm({workoutArray, workoutName, blankWorkout, se
   };
 
   const handleNewWorkout = () => {
+    setCurrentIndex(0);
+    setErrorMessage("");
     setWorkoutID("");
     setWorkoutName("");
     setWorkoutArray([blankWorkout]);
