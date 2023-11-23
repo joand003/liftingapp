@@ -12,6 +12,8 @@ export default function CurrentWorkoutComponent({
     currentWorkoutName,
     workoutType,
     currentWorkoutID,
+    selectedActivity,
+    setSelectedActivity
 }) {
     const { data: session, status } = useSession();
     const [isSaving, setIsSaving] = useState(false);
@@ -82,6 +84,7 @@ export default function CurrentWorkoutComponent({
     };
 
     const handleNext = () => {
+        setSelectedActivity("Jump to activity");
         if (workoutType === "straightSets") {
             // If current set is the last set of the last activity, do nothing
             if (
@@ -135,6 +138,7 @@ export default function CurrentWorkoutComponent({
     };
 
     const handlePrevious = () => {
+        setSelectedActivity("Jump to activity");
         if (workoutType === "straightSets") {
             if (currentSet === 0 && currentActivityIndex === 0) {
                 return;
@@ -194,6 +198,13 @@ export default function CurrentWorkoutComponent({
         setSaveMessage("");
         setIsSaving(false);
     };
+
+    const handleSelectActivity = (e) => {
+        const index = currentWorkout.findIndex((item) => item.activity === e.target.value)
+        setCurrentSet(0)
+        setCurrentActivityIndex(index)
+        setSelectedActivity(e.target.value)
+    }
 
     return (
         <div className="flex flex-col">
@@ -345,6 +356,12 @@ export default function CurrentWorkoutComponent({
                     )}
                 </div>
             ) : null}
+            <select className="w-full my-1 text-slate-800 text-center" value={selectedActivity} onChange={handleSelectActivity}>
+                <option value="Jump to activity" disabled>Jump to activity</option>
+                {currentWorkout.map((item, index) => {
+        return (<option key={index}>{item.activity}</option>)
+      })}
+            </select>
             <div className="my-1 flex flex-row space-x-2 justify-evenly">
                 <button
                     onClick={handlePrevious}
@@ -356,11 +373,6 @@ export default function CurrentWorkoutComponent({
                 <button
                     onClick={handleNext}
                     className="bg-purple-500 hover:bg-purple-400 rounded px-2 disabled:bg-gray-500 flex-grow"
-                    // disabled={
-                    //     currentSet + 1 ===
-                    //         currentWorkout[currentActivityIndex].sets &&
-                    //     currentActivityIndex + 1 == maxRounds
-                    // }
                 >
                     Next
                 </button>
